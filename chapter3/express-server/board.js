@@ -20,7 +20,7 @@ app.post("/posts", (req, res) => {
   res.json({ title, name, text });
 });
 
-app.delete("/posts/:id", (req, res) => {
+app.delete("/posts/:id", (req, res) => { //:id 부분은 경로 delete(핸들러) 내에서 액세스할 수 있는 "id"라는 URL 매개변수를 나타냅니다. (:id === 삭제할 게시물의 id)
   const id = req.params.id;
   const filteredPosts = posts.filter((post) => post.id !== +id); // +id는 string인 id를 int로 변경한다는 뜻
   const isLengthChanged = posts.length !== filteredPosts.length;
