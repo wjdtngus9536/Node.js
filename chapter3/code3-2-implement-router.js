@@ -4,6 +4,7 @@ const url = require("url"); // url 모듈을 로딩해서 변수에 할당
 http.createServer((req, res) => {
     const path = url.parse(req.url, true).pathname; // url 모듈로 req로 받은 url의 pathname을 얻는다, true시 쿼리 스트링도 함께 파싱
     console.log(path);
+    console.log(req.url);
     res.setHeader("Content-Type", "text/html; charset=utf-8");
 
     if (path === "/user") {
