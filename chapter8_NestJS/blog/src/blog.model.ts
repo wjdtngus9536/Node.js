@@ -1,9 +1,8 @@
-// 블로그 게시글의 타입을 정의
-export interface PostDto {
+export interface PostDto { // 게시글의 데이터를 나타내는 타입
     id: string;
     title: string;
     content: string;
     name: string;
     createdDt: Date;
-    updatedDt?: Date;
+    updatedDT ?: Date;
 }

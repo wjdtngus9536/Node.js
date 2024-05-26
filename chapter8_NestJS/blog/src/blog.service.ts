@@ -1,28 +1,37 @@
-import { PostDto } from './blog.model';
+import { Injectable } from "@nestjs/common";
+import { PostDto } from "./blog.model";
+import { BlogMongoRepository } from "./blog.repository";
 
+@Injectable()
 export class BlogService {
-    posts = [];
+    // posts = [];
+    // blogRepository: BlogRepository; // BlogRepository = interface(객체 속성의 자료형까지 정의된 객체의 자료형) 명칭
 
-    getAllPosts() {
-        return this.posts;
+    // constructor() {
+    //     this.blogRepository = new BlogFileRepository();
+    // }
+
+    constructor(private blogRepository: BlogMongoRepository){
+        
+    }
+
+    async getAllPosts() {
+        return await this.blogRepository.getAllPosts();
     }
 
     createPost(postDto: PostDto) {
-        const id = this.posts.length + 1;
-        this.posts.push({ id: id.toString(), ...postDto, createdDt: new Date() });
+        this.blogRepository.createPost(postDto);
     }
 
-    getPost(id) {
-        const post = this.posts.find((post) => {
-            return post.id === id;
-        });
-        console.log(post);
-        return post;
+    async getPost(id) {
+        return await this.blogRepository.getAllPosts();
     }
 
-    delete(id) {
-        const filteredPosts = this.posts.filter((post) => post.id !== id);
-        this.posts = [...filteredPosts]; // destructuring assignment로 깊은 복사
+    deletePost(id) {
+        this.blogRepository.deletePost(id);
     }
 
+    updatePost(id, postDto: PostDto) {
+        this.blogRepository.updatePost(id, postDto);
+    }
 }
