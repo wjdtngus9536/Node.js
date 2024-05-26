@@ -1,8 +1,8 @@
-interface ICheckLength {
-    length : number;
+interface ICheckLength<T> {
+    length : T;
 }
 
-function echo<T extends ICheckLength>(message: T) {
+function echo<T extends ICheckLength<number>>(message: T) {
     console.log(message, message.length);
 }
 
