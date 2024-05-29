@@ -11,7 +11,8 @@ function myWork(work) {
     
 // 1. 콜백과 다를 바가 없음 
 myWork('done').then(function (value) { console.log(value) }, function (err) { console.error(err) });
-    
+
+// then에서는 Promise가 이행된 경우만 처리
 // 2. 좋음
 myWork('doing')
     .then(function (value) { console.log(value) })
