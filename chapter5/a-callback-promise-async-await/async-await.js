@@ -18,11 +18,19 @@ const waitOneSecond = async (msg) => {
 }
 
 async function countOneToTen(){
-    for (let x of [...Array(10).keys()]) {
-        let result = await waitOneSecond(`${x + 1}초 대기 중...`);
-        console.log(result);
+    try{
+        for (let x of [...Array(10).keys()]) {
+            let result = await waitOneSecond(`${x + 1}초 대기 중...`);
+            console.log(typeof result);
+        }
+        console.log("완료");
+    } 
+    catch(err) {
+        throw new Error(err);
     }
-    console.log("완료");
+    finally {
+        return 5;
+    }
 }
 
 console.log(countOneToTen());
