@@ -14,16 +14,16 @@ const app = express();
 app.use(bodyParser.json()); // 2) HTTP에서 Body를 파싱하기 위한 미들웨어
 app.listen(3000, async () => {
     console.log("Server started");
-
-    const mongodbUri = `mongodb+srv://wjdtngus9536:${password}@cluster0.5xqv0qb.mongodb.net/test?retryWrites=true&w=majority`;
+    const modelName = 'test'; // URI에 몽고DB 데이터베이스 모델명을 지정
+    const mongodbUri = `mongodb+srv://wjdtngus9536:${password}@cluster0.5xqv0qb.mongodb.net/${modelName}?retryWrites=true&w=majority`;
 
     mongoose
-        .connect(mongodbUri)
-        .then(console.log);
+        .connect(mongodbUri);
+        // .then(console.log);
 })
 
 // 5) person 데이터 추가하기
-app.put("/person/:email", async (req, res) => {
+app.post("/person", async (req, res) => {
     const person = new Person(req.body);
     await person.save();
     res.send(person);
@@ -36,7 +36,7 @@ app.get("/person", async (req, res) => {
 });
 
 // 5) 특정 email로 person 찾기
-app.get("/person", async (req, res) => {
+app.get("/person/:email", async (req, res) => {
     const person = await Person.findOne({ email: req.params.email });
     res.send(person);
 });
