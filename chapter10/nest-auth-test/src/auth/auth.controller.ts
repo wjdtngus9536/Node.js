@@ -1,4 +1,4 @@
-import { Body, Get, Post, Request, Response, UseGuards, Controller } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, Response, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from 'src/user/user.dto';
 import { AuthService } from './auth.service';
 import { LoginGuard } from './auth.guard';
@@ -12,7 +12,9 @@ export class AuthController {
         return await this.authService.register(userDto);    // 5) authService를 사용해 user 정보 저장
     }
 
-    // login 핸들러 메서드 작성
+
+    
+    // login 핸들러 메서드, validateUser() 메서드를 사용해 인증 결과를 쿠키에 추가
     @Post('login')
     async login(@Request() req, @Response() res) {
         const userInfo = await this.authService.validateUser(req.body.email, req.body.password);
@@ -27,9 +29,21 @@ export class AuthController {
         return res.send({ message: 'login success' });
     }
 
+    
     @UseGuards(LoginGuard)
     @Post('login2')
     async login2(@Request() req, @Response() res) {
+        // 2) 쿠키 정보는 없지만 request에 user 정보가 있다면 응답값에 쿠키 정보 추가
+        if (!req.cookies['login'] && req.user) {
+            res.cookie('login', JSON.stringify(req.user), {httpOnly:true, maxAge: 1000 * 10});
+        }
+        return res.send({ messsage: 'login2 success' });
+    }
 
+    // 4) 로그인을 한 때만 실행되는 메서드
+    @UseGuards(LoginGuard)
+    @Get('test-guard')
+    testGuard() {
+        return '로그인된 때만 이 글이 보입니다.';
     }
 }

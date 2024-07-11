@@ -7,7 +7,8 @@ import * as bcrypt from 'bcrypt'; // import { bcrypt } 와 차이?
 @Injectable()
 export class AuthService {
     constructor(private userService: UserService) {}
-
+    
+    // 기존 회원가입이 되어있는지 확인, 없다면 비밀번호 암호화하여 userRepository에 저장 후 비밀번호 제외한 user 정보 반환
     async register(userDto: CreateUserDto) {
         const user = await this.userService.getUser(userDto.email);
         if (user) {
@@ -36,13 +37,13 @@ export class AuthService {
     }
 
 
-    // email, pw를 넘겨주면 해당 정보의 유저가 있는지 유효성 검증을 하는 로직 필요
+    // email, pw를 넘겨주면 해당 정보의 유저가 있는지 유효성 검증을 하는 로직
     async validateUser(email: string, password: string) {
         const user = await this.userService.getUser(email);
-
         if (!user) {
             return null;
         }
+
         const { password: hashedPassword, ...userInfo } = user;
         if (bcrypt.compareSync(password, hashedPassword)) {
             return userInfo;
