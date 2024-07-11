@@ -1,10 +1,21 @@
-### 회원 가입
+@server = http://localhost:3000
 
-POST http://localhost:3000/auth/register
+### 회원 가입
+POST {{server}}/auth/register
 content-type: application/json
 
 {
     "email": "andy1@podo.com",
     "password": "1234",
     "username": "andy"
+}
+
+
+### 로그인
+POST {{server}}/auth/login
+content-type: application/json
+
+{
+    "email": "andy1@podo.com",
+    "password": "1234"
 }

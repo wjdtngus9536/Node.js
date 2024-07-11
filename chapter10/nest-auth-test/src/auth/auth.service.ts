@@ -34,4 +34,19 @@ export class AuthService {
             throw new HttpException('서버 에러', 500);
         }
     }
+
+
+    // email, pw를 넘겨주면 해당 정보의 유저가 있는지 유효성 검증을 하는 로직 필요
+    async validateUser(email: string, password: string) {
+        const user = await this.userService.getUser(email);
+
+        if (!user) {
+            return null;
+        }
+        const { password: hashedPassword, ...userInfo } = user;
+        if (bcrypt.compareSync(password, hashedPassword)) {
+            return userInfo;
+        }
+        return null;
+    }
 }
