@@ -1,0 +1,11 @@
+@server = http://localhost:3000/auth
+
+### 회원 가입
+POST {{server}}/register
+Content-Type: application/json 
+
+{
+    "email": "andy1@podo.com",
+    "pw": "1234",
+    "username": "andy"
+}

@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { User } from './user/user.entity';
       // synchronize: true, // 꼭 개발용으로만 사용, 프로덕션 서버에서 사용하면 서버 기동 시 의도치 않게 데이터베이스 스키마를 변경할 수도 있기 때문
       logging: true, // SQL 실행로그 확인용 >> 어디서 확인하는지 비교
     }),
-    UserModule
+    UserModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

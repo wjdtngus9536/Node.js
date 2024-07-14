@@ -10,6 +10,7 @@ import { User } from './user.entity';
   // 이를 통해 서비스나 컨트롤러에서 TypeORM 저장소를 사용 가능
   imports: [TypeOrmModule.forFeature([User])], // 서비스에서 사용하는 리포지토리를 모듈에 등록해줘야 서비스에서 리포지토리를 찾을 수 있음
   controllers: [UserController],
-  providers: [UserService]
+  providers: [UserService],
+  exports: [UserService]
 })
 export class UserModule {}
