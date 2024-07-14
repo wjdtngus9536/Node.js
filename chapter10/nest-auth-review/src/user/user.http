@@ -25,3 +25,14 @@ Content-Type: application/json
 
 ### 유저 삭제
 DELETE {{server}}/delete/andy@podo.com
+
+
+### 잘못된 이메일과 이름 타입을 입력해보기
+POST {{server}}/create
+Content-Type: application/json
+
+{
+    "email": "andypodocom",
+    "username": 5,
+    "pw": "test1234"
+}

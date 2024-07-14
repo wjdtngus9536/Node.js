@@ -28,12 +28,12 @@ export class UserService {
     async updateUser(email, _user) {
         const user: User = await this.getUser(email);
 
-        console.log(_user);
+        // console.log(_user);
         user.username = _user.username;
         user.pw = _user.pw;
 
-        console.log(user);
-        this.userRepository.save(user);
+        // console.log(user);
+        return this.userRepository.save(user);
     }
 
     // 유저 정보 삭제

@@ -13,8 +13,8 @@ import { User } from './user/user.entity';
       type:'sqlite',
       database:'nest-auth-review.sqlite',
       entities:[User],
-      synchronize: true, // 꼭 개발용으로만 사용, 프로덕션 서버에서 사용하면 서버 기동 시 의도치 않게 데이터베이스 스키마를 변경할 수도 있기 때문
-      // logging: true, // SQL 실행로그 확인용 >> 어디서 확인하는지 비교
+      // synchronize: true, // 꼭 개발용으로만 사용, 프로덕션 서버에서 사용하면 서버 기동 시 의도치 않게 데이터베이스 스키마를 변경할 수도 있기 때문
+      logging: true, // SQL 실행로그 확인용 >> 어디서 확인하는지 비교
     }),
     UserModule
   ],
