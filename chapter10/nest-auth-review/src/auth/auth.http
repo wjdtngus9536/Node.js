@@ -9,3 +9,31 @@ Content-Type: application/json
     "pw": "1234",
     "username": "andy"
 }
+
+
+### 로그인
+POST {{server}}/login2
+Content-Type: application/json
+
+{
+    "email": "andy1@podo.com",
+    "pw": "1234",
+    "username": "whatever"
+}
+
+
+### Guard를 사용해서 인증됐는지 검사하기
+GET {{server}}/test-guard
+
+
+### 로그인 3: 세선을 사용하는 테스트
+POST {{server}}/login3
+Content-Type: application/json
+
+{
+    "email": "andy1@podo.com",
+    "pw": "1234"
+}
+
+### 인증 테스트2 세션 사용
+GET {{server}}/test-guard2
