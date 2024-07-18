@@ -1,6 +1,7 @@
 import { Controller, Body, Param, Post, Get } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
+import { CreateUserDto } from './user.dto';
 
 @Controller('user')
 export class UserController {
@@ -8,7 +9,7 @@ export class UserController {
 
     // 회원 가입
     @Post('/create')
-    createUser(@Body() user: User) {
+    createUser(@Body() user: CreateUserDto) {
         return this.userService.createUser(user);
     }
 
@@ -17,5 +18,5 @@ export class UserController {
     async getUser(@Param('email') email: string) {
         return await this.userService.getUser(email);
     }
-    
+
 }

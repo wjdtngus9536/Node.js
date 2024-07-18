@@ -1,0 +1,19 @@
+### 회원가입
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "andy6@podo.com",
+    "password": "1234",
+    "username": "andy"
+}
+
+
+### 로그인 with 쿠기 정보
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "andy6@podo.com",
+    "password": "1234"
+}

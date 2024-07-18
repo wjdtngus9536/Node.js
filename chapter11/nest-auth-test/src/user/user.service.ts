@@ -9,7 +9,7 @@ export class UserService {
     constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
 
 
-    createUser(user: User) {
+    createUser(user): Promise<User> {
         return this.userRepository.save(user);
     }
 
