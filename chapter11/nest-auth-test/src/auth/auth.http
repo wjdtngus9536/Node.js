@@ -17,3 +17,16 @@ Content-Type: application/json
     "email": "andy6@podo.com",
     "password": "1234"
 }
+
+
+### 로그인 with session
+POST http://localhost:3000/auth/login3
+Content-Type: application/json
+
+{
+    "email": "andy6@podo.com",
+    "password": "1234"
+}
+
+### 인증이 성공하는지 테스트
+GET http://localhost:3000/auth/test-guard2

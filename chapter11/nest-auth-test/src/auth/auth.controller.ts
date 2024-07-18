@@ -1,6 +1,7 @@
-import { Controller, Body, Get, Post, Request, Response } from '@nestjs/common';
+import { Controller, Body, Get, Post, Request, Response, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/user/user.dto';
+import { AuthenticatedGuard, LocalAuthGuard } from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -24,6 +25,19 @@ export class AuthController {
             });
             return res.send({ message: '로그인 성공' });
         }
+    }
+
+    @UseGuards(LocalAuthGuard)
+    @Post('login3')
+    login3(@Request() req) {
+        console.log('7) AuthController: 클라이언트에 connect.sid 쿠키를 포함하여 응답 전송');
+        return req.user;
+    }
+
+    @UseGuards(AuthenticatedGuard)
+    @Get('test-guard2')
+    testGuardWithSession(@Request() req) {
+        return req.user;
     }
 
 }

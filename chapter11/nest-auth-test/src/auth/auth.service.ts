@@ -22,7 +22,7 @@ export class AuthService {
 
     async validateUser(email: string, password: string) {
         const user = await this.userService.getUser(email);
-        console.log(user)
+        // console.log(user)
         if (!user) {
             return null;
         }
