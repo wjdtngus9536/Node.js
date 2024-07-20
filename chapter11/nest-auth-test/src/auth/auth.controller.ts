@@ -1,12 +1,32 @@
 import { Controller, Body, Get, Post, Request, Response, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/user/user.dto';
-import { AuthenticatedGuard, LocalAuthGuard } from './auth.guard';
+import { AuthenticatedGuard, GoogleAuthGuard, LocalAuthGuard } from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService) {}
 
+    // 구글 로그인으로 이동하는 라우터 메서드
+    @Get('to-google')
+    @UseGuards(GoogleAuthGuard)
+    async googleAuth(@Request() req) {}
+
+
+    // 구글 로그인 성공 시 실행하는 라우터 메서드 입니다.
+    @Get('google')
+    @UseGuards(GoogleAuthGuard)
+    async googleAuthRedirect(@Request() req, @Response() res) {
+        const {user} = req;
+        return res.send(user);
+    }
+
+
+
+
+
+
+    
     @Post('register')
     async register(@Body() userDto: CreateUserDto) {
         return await this.authService.register(userDto);
@@ -40,4 +60,5 @@ export class AuthController {
         return req.user;
     }
 
+    
 }

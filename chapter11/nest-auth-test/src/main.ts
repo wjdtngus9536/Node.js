@@ -16,7 +16,7 @@ async function bootstrap() {
       secret: '25-xhdtls',
       resave: false,
       saveUninitialized: false,
-      cookie: {maxAge: 1000 * 30},
+      cookie: {maxAge: 1000 * 10},
     })
   );
   // passport 초기화 및 세션 저장소 초기화
