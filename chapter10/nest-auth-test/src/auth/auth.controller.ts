@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Request, Response, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from 'src/user/user.dto';
 import { AuthService } from './auth.service';
-import { LoginGuard } from './auth.guard';
+import { AuthenticatedGuard, LocalAuthGuard, LoginGuard } from './auth.guard';
 
 @Controller('auth') // localhost:3000/auth로 시작하는 컨트롤러 정의
 export class AuthController {
@@ -33,9 +33,12 @@ export class AuthController {
     @UseGuards(LoginGuard)
     @Post('login2')
     async login2(@Request() req, @Response() res) {
-        // 2) 쿠키 정보는 없지만 request에 user 정보가 있다면 응답값에 쿠키 정보 추가
+        // 쿠키 정보는 없지만 request에 user 정보가 있다면, 쿠키 정보를 Response에 저장
         if (!req.cookies['login'] && req.user) {
-            res.cookie('login', JSON.stringify(req.user), {httpOnly:true, maxAge: 1000 * 10});
+            res.cookie('login', JSON.stringify(req.user), {
+                httpOnly:true, 
+                maxAge: 1000 * 10
+            });
         }
         return res.send({ messsage: 'login2 success' });
     }
@@ -45,5 +48,19 @@ export class AuthController {
     @Get('test-guard')
     testGuard() {
         return '로그인된 때만 이 글이 보입니다.';
+    }
+
+    // 세션을 사용하는 로그인 테스트를 위한 핸들러 메서드 추가
+
+    @UseGuards(LocalAuthGuard)
+    @Post('login3')
+    login3(@Request() req) {
+        return req.session;
+    }
+
+    @UseGuards(AuthenticatedGuard)
+    @Get('test-guard2')
+    testGuardWithSession(@Request() req) {
+        return req.user;
     }
 }

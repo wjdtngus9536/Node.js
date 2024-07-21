@@ -32,3 +32,25 @@ content-type: application/json
 
 ### Guard 테스트
 GET {{server}}/auth/test-guard
+
+
+### 로그인 3: 1) 세션을 사용하는 테스트
+POST {{server}}/auth/login3
+Content-Type: application/json
+
+{
+    "email": "andy1@podo.com",
+    "password": "1234"
+}
+
+### 로그인 3: 2) 틀린 패스워드로 테스트
+POST {{server}}/auth/login3
+Content-Type: application/json
+
+{
+    "email": "andy1@podo.com",
+    "password": "12345"
+}
+
+### 3) 인증이 성공하는지 테스트
+GET {{server}}/auth/test-guard2
