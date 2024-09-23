@@ -9,32 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BlogService = void 0;
+exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
-const blog_repository_1 = require("./blog.repository");
-let BlogService = class BlogService {
-    constructor(blogRepository) {
-        this.blogRepository = blogRepository;
+const app_service_1 = require("./app.service");
+let AppController = class AppController {
+    constructor(appService) {
+        this.appService = appService;
     }
-    async getAllPosts() {
-        return await this.blogRepository.getAllPosts();
-    }
-    createPost(postDto) {
-        this.blogRepository.createPost(postDto);
-    }
-    async getPost(id) {
-        return await this.blogRepository.getAllPosts();
-    }
-    deletePost(id) {
-        this.blogRepository.deletePost(id);
-    }
-    updatePost(id, postDto) {
-        this.blogRepository.updatePost(id, postDto);
+    getHello() {
+        return this.appService.getHello();
     }
 };
-exports.BlogService = BlogService;
-exports.BlogService = BlogService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [blog_repository_1.BlogMongoRepository])
-], BlogService);
-//# sourceMappingURL=blog.service.js.map
+exports.AppController = AppController;
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", String)
+], AppController.prototype, "getHello", null);
+exports.AppController = AppController = __decorate([
+    (0, common_1.Controller)(),
+    __metadata("design:paramtypes", [app_service_1.AppService])
+], AppController);
+//# sourceMappingURL=app.controller.js.map
