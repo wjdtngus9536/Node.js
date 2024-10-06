@@ -15,6 +15,8 @@ console.log(`${process.cwd()}/envs/${process.env.NODE_ENV}.env`);
     isGlobal: true,
     envFilePath: `${process.cwd()}/envs/${process.env.NODE_ENV}.env`,
     load: [config],
+    cache: true,
+    expandVariables: true,
   }), WeatherModule],
   controllers: [AppController],
   providers: [AppService],
